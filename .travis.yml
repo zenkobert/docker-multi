@@ -17,4 +17,9 @@ after_success:
   - docker build -t zezenk/docker-server ./server
   - docker build -t zezenk/docker-worker ./worker
   # Login to docker CLI
-  
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+  # Push to Docker Hub
+  - docker push zezenk/docker-client
+  - docker push zezenk/docker-nginx
+  - docker push zezenk/docker-server
+  - docker push zezenk/docker-worker
