@@ -1,0 +1,20 @@
+suod: required
+services:
+  - docker
+
+before_install:
+  - docker build -t zezenk/docker-multi -f ./client/Dockerfile.dev ./client
+  # - docker build myotherproject
+
+script:
+  - docker run -e CI=true zezenk/docker-multi npm run test
+  # - docker run myotherproject run test
+
+# build the images and push them to Docker Hub
+after_success:
+  - docker build -t zezenk/docker-client ./client
+  - docker build -t zezenk/docker-nginx ./nginx
+  - docker build -t zezenk/docker-server ./server
+  - docker build -t zezenk/docker-worker ./worker
+  # Login to docker CLI
+  
