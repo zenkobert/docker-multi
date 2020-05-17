@@ -23,3 +23,15 @@ after_success:
   - docker push zezenk/docker-nginx
   - docker push zezenk/docker-server
   - docker push zezenk/docker-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-southeast-1"
+  app: "docker-multi"
+  env: "DockerMulti-env"
+  bucket_name: "elasticbeanstalk-ap-southeast-1-498093216196"
+  bucket_path: "docker-multi"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
